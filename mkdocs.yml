@@ -2,3 +2,6 @@ site_name: Advanced Django Training
 theme: readthedocs
 site_url: https://django-advanced-training.readthedocs.io
 repo_url: https://github.com/chadgh/django-advanced-training
+site_description: Advanced training for the Django web framework.
+site_author: Chad G. Hansen
+copyright: &copy; 2017 Chad G. Hansen
