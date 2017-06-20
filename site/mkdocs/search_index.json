@@ -1,0 +1,54 @@
+{
+    "docs": [
+        {
+            "location": "/",
+            "text": "Welcome to Advanced Django Training\n\n\nHere is some information. \nDjango\n is awesome!\n\n\nTOC\n\n\n\n\nMessages Framework",
+            "title": "Home"
+        },
+        {
+            "location": "/#welcome-to-advanced-django-training",
+            "text": "Here is some information.  Django  is awesome!",
+            "title": "Welcome to Advanced Django Training"
+        },
+        {
+            "location": "/#toc",
+            "text": "Messages Framework",
+            "title": "TOC"
+        },
+        {
+            "location": "/features/contrib.messages/",
+            "text": "Messages Framework\n\n\nBasics\n\n\nThe messages framework in Django is to make sending one-time messages to users very simple. After you get the messages framework setup in your Django project it is as simple as adding something like the following code in your views and updating your templates to display the messages:\n\n\nfrom django.contrib import messages\n...\n# in view code\nmessages.success(request, 'You successfully did something!')\n\n\n\n\nDeep Dive\n\n\nHands-on Exercises\n\n\nContribute\n\n\nResources\n\n\n\n\ncontrib.messages documentation\n\n\ncontrib.messages open tickets\n (refer to \nUnderstanding Django's Ticketing System\n for more details)",
+            "title": "Contrib.messages"
+        },
+        {
+            "location": "/features/contrib.messages/#messages-framework",
+            "text": "",
+            "title": "Messages Framework"
+        },
+        {
+            "location": "/features/contrib.messages/#basics",
+            "text": "The messages framework in Django is to make sending one-time messages to users very simple. After you get the messages framework setup in your Django project it is as simple as adding something like the following code in your views and updating your templates to display the messages:  from django.contrib import messages\n...\n# in view code\nmessages.success(request, 'You successfully did something!')",
+            "title": "Basics"
+        },
+        {
+            "location": "/features/contrib.messages/#deep-dive",
+            "text": "",
+            "title": "Deep Dive"
+        },
+        {
+            "location": "/features/contrib.messages/#hands-on-exercises",
+            "text": "",
+            "title": "Hands-on Exercises"
+        },
+        {
+            "location": "/features/contrib.messages/#contribute",
+            "text": "",
+            "title": "Contribute"
+        },
+        {
+            "location": "/features/contrib.messages/#resources",
+            "text": "contrib.messages documentation  contrib.messages open tickets  (refer to  Understanding Django's Ticketing System  for more details)",
+            "title": "Resources"
+        }
+    ]
+}
