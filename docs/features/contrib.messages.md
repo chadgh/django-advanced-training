@@ -57,7 +57,7 @@ For more information about Django's messages framework see the [Django documenta
 
 ## 2. Deep Dive
 
-### 2.1. Code Walkthrough
+### 2.1. Code Walk-through
 
 #### `MessageMiddleware`
 The messages middleware is the place to start as we take a closer look at the implementation for this feature. The middleware is one of the things that is required to make sure you are able to use the messages framework. The code can be found [on github](https://github.com/django/django/blob/master/django/contrib/messages/middleware.py).
