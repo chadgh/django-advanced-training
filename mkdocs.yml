@@ -5,5 +5,3 @@ repo_url: "https://github.com/chadgh/django-advanced-training"
 site_description: "Advanced training for the Django web framework."
 site_author: "Chad G. Hansen"
 copyright: "© 2017 Chad G. Hansen"
-# markdown_extensions:
-#     - codehilite(linenums=true)
