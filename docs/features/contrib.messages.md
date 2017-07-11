@@ -20,7 +20,7 @@ def some_view(request):
 ...
 ```
 
-The above code adds the message "Hello!" to the messages storage backend to be displayed to the user later during the current request or during the next request. Messages are stored with the level information attached to them for later use. The messages above are stored with the level of 'INFO'.
+The above code adds the message "Hello!" to the messages storage backend to be displayed to the user later during the current request or during the next request. Messages are stored with the level information attached to them for later use. The messages above are stored with the level of 'INFO'. When a message is displayed it is removed from the storage backend.
 
 In order to display messages to the user the messages need to be looped over in a template. The following template code is one way to do this:
 
