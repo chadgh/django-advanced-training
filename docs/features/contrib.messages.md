@@ -222,9 +222,9 @@ def set_level(request, level):
     request._messages.level = level
     return True
 ```
-This is a fairly simple function as well. It will return `True` or `False` indicating if it was able to change the message level, but it simply changes the level attribute on the storage backend instance, once again, found in the `_messages` attribute of the request object.
+This function will return `True` or `False` indicating if it was able to change the message level. It simply changes the level attribute on the storage backend instance found in the `_messages` attribute of the request object.
 
-Finally there are several convenience functions provided to make it simpler to add messages at specific levels. These functions are very simple and all do the exact same thing.
+Finally, there are several convenience functions provided to make it simpler to add messages at specific levels. These simple functions all do the exact same thing.
 
 ```python
 def debug(request, message, extra_tags='', fail_silently=False):
@@ -232,7 +232,7 @@ def debug(request, message, extra_tags='', fail_silently=False):
     add_message(request, constants.DEBUG, message, extra_tags=extra_tags, 
                 fail_silently=fail_silently)
 ```
-All of the convenience functions are the same here. The only differences being the name, doc string, and which constant level value that is provided as the second argument of the `add_message` call.
+All of the convenience functions are the same here. The only differences being the name, the doc string, and which constant level value that is provided as the second argument of the `add_message` call.
 
 ### 2.2 Language Features
 
