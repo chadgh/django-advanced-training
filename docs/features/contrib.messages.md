@@ -114,11 +114,7 @@ def _get(self, *args, **kwargs):
     retrieved; e.g., ``(messages, all_retrieved)``.
     """
     ...
-```
-
-The `_get` method must return a tuple where the first element is a list of the stored messages and the second element is a flag indicating whether or not all of the messages where stored and retrieved.
-
-```python
+    
 # messages storage backend _store method signature.
 def _store(self, messages, response, *args, **kwargs):
     """
@@ -127,6 +123,8 @@ def _store(self, messages, response, *args, **kwargs):
     """
     ...
 ```
+
+The `_get` method must return a tuple where the first element is a list of the stored messages and the second element is a flag indicating whether or not all of the messages where stored and retrieved.
 
 The `_store` method must store a list of messages and return a list of the messages that couldn't be stored.
 
