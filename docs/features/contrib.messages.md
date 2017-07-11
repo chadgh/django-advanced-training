@@ -2,7 +2,7 @@
 
 ## 1. Basics
 
-Django's messages framework makes sending one-time messages to users simple. After settings up the messages framework in your Django project (which is setup by default in the standard Django project) it is as simple as adding a message with a single call in your views. 
+Django's messages framework makes sending one-time messages to users simple. After setting up the messages framework in your Django project (which is setup by default in the standard Django project) it is as simple as adding a message with a single call in your views. 
 
 ```python
 # views.py
@@ -20,7 +20,7 @@ def some_view(request):
 ...
 ```
 
-The above code adds the message "Hello!" to the messages storage backend to be displayed to the user later during the current request or during the next request. Messages are stored with the level information attached to them for later use. The messages above are stored with the level of 'INFO'.
+The above code adds the message "Hello!" to the messages storage backend to be displayed to the user later during the current request or during the next request. Messages are stored with the level information attached to them for later use. The messages above are stored with the level of 'INFO'. When a message is displayed it is removed from the storage backend.
 
 In order to display messages to the user the messages need to be looped over in a template. The following template code is one way to do this:
 
@@ -102,7 +102,7 @@ The messages context processor ([code](https://github.com/django/django/blob/mas
 
 #### Message Storage
 
-The messages framework stores the messages in what is known as a storage backend. These backends must extend from the `BaseStorage` class found in [storage/base.py](https://github.com/django/django/blob/master/django/contrib/messages/storage/base.py#L43) in the messages framework code. As the doc string for the class says, all children classes that want to implement a new storage backend must implement two methods: `_get` and `_store`.
+The messages framework stores the messages in what is known as a storage backend. These backends must extend from the `BaseStorage` class found in [storage/base.py](https://github.com/django/django/blob/master/django/contrib/messages/storage/base.py#L43) in the messages framework code. The `BaseStorage` class' doc string states that all children classes that implement a new storage backend must implement two methods: `_get` and `_store`.
 
 ```python
 # message storage backend _get method signature.
@@ -114,11 +114,7 @@ def _get(self, *args, **kwargs):
     retrieved; e.g., ``(messages, all_retrieved)``.
     """
     ...
-```
-
-The `_get` method must return a tuple where the first element is a list of the stored messages and the second element is a flag indicating whether or not all of the messages where stored and retrieved.
-
-```python
+    
 # messages storage backend _store method signature.
 def _store(self, messages, response, *args, **kwargs):
     """
@@ -127,6 +123,8 @@ def _store(self, messages, response, *args, **kwargs):
     """
     ...
 ```
+
+The `_get` method must return a tuple where the first element is a list of the stored messages and the second element is a flag indicating whether or not all of the messages where stored and retrieved.
 
 The `_store` method must store a list of messages and return a list of the messages that couldn't be stored.
 
@@ -212,7 +210,7 @@ def add_message(request, level, message, extra_tags='', fail_silently=False):
 ...
 ```
 
-Remember that the `_messages` attribute on the request object is an instance of the storage backend. So the `add_message` function just delegates to the storage backends `add` method, which we have already seen.
+Remember that the `_messages` attribute on the request object is an instance of the storage backend. So the `add_message` function simply delegates to the storage backend's `add` method as seen previously.
 
 The `set_level` function allows you to change the minimum message level that should be store.
 
@@ -224,9 +222,9 @@ def set_level(request, level):
     request._messages.level = level
     return True
 ```
-This is a fairly simple function as well. It will return `True` or `False` indicating if it was able to change the message level, but it simply changes the level attribute on the storage backend instance, once again, found in the `_messages` attribute of the request object.
+This function will return `True` or `False` indicating if it was able to change the message level. It simply changes the level attribute on the storage backend instance found in the `_messages` attribute of the request object.
 
-Finally there are several convenience functions provided to make it simpler to add messages at specific levels. These functions are very simple and all do the exact same thing.
+Finally, there are several convenience functions provided to make it simpler to add messages at specific levels. These simple functions all do the exact same thing.
 
 ```python
 def debug(request, message, extra_tags='', fail_silently=False):
@@ -234,7 +232,7 @@ def debug(request, message, extra_tags='', fail_silently=False):
     add_message(request, constants.DEBUG, message, extra_tags=extra_tags, 
                 fail_silently=fail_silently)
 ```
-All of the convenience functions are the same here. The only differences being the name, doc string, and which constant level value that is provided as the second argument of the `add_message` call.
+All of the convenience functions are the same here. The only differences being the name, the doc string, and which constant level value that is provided as the second argument of the `add_message` call.
 
 ### 2.2 Language Features
 
