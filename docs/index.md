@@ -15,3 +15,4 @@ If you would like to contribute to this training material, see the [Contributing
 
 * [Messages Framework](features/contrib.messages.md)
 * [Class-based Views](features/class-based-views.md)
+* [Signals](features/signals.md)

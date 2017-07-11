@@ -54,7 +54,7 @@ TODO ???
 
 ### 3.1 Exercise 1
 
-**Using the django-advanced-training-project, implement a todo_completed signal and call the send method from the mark_as_done method on the Todo model. Hook into the signal a callback that logs the item that was completed.**
+**Using the django-advanced-training-project, implement a `todo_completed` signal and call the send method from the `mark_as_done` method on the `Todo` model. Hook into the signal a callback that logs the item that was completed.**
 
 #### Hints
 
@@ -68,10 +68,6 @@ TODO
 
 ### Resources
 
-TODO
-
-* [Django class-based views documentation](https://docs.djangoproject.com/en/1.11/ref/class-based-views/)
-* [Django class-based views reference](https://docs.djangoproject.com/en/1.11/topics/class-based-views/)
-* [Classy Class-based Views](https://ccbv.co.uk)
-* [Generic views open tickets](https://code.djangoproject.com/query?status=assigned&status=new&component=Generic+views&col=summary&col=status&col=owner&col=type&col=version&col=has_patch&col=needs_docs&col=needs_tests&col=needs_better_patch&col=easy) (refer to [Understanding Django's Ticketing System]() for more details)
+* [Django Signals documentation](https://docs.djangoproject.com/en/1.11/topics/signals/)
+* [Signals open tickets](https://code.djangoproject.com/query?status=assigned&status=new&summary=~signal&col=summary&col=status&col=owner&col=type&col=version&col=has_patch&col=needs_docs&col=needs_tests&col=needs_better_patch&col=easy) (refer to [Understanding Django's Ticketing System]() for more details)
 
