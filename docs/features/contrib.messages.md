@@ -210,7 +210,7 @@ def add_message(request, level, message, extra_tags='', fail_silently=False):
 ...
 ```
 
-Remember that the `_messages` attribute on the request object is an instance of the storage backend. So the `add_message` function just delegates to the storage backends `add` method, which we have already seen.
+Remember that the `_messages` attribute on the request object is an instance of the storage backend. So the `add_message` function simply delegates to the storage backend's `add` method as seen previously.
 
 The `set_level` function allows you to change the minimum message level that should be store.
 
