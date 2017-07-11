@@ -102,7 +102,7 @@ The messages context processor ([code](https://github.com/django/django/blob/mas
 
 #### Message Storage
 
-The messages framework stores the messages in what is known as a storage backend. These backends must extend from the `BaseStorage` class found in [storage/base.py](https://github.com/django/django/blob/master/django/contrib/messages/storage/base.py#L43) in the messages framework code. As the doc string for the class says, all children classes that want to implement a new storage backend must implement two methods: `_get` and `_store`.
+The messages framework stores the messages in what is known as a storage backend. These backends must extend from the `BaseStorage` class found in [storage/base.py](https://github.com/django/django/blob/master/django/contrib/messages/storage/base.py#L43) in the messages framework code. The `BaseStorage` class' doc string states that all children classes that implement a new storage backend must implement two methods: `_get` and `_store`.
 
 ```python
 # message storage backend _get method signature.
