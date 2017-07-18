@@ -124,6 +124,9 @@ To learn more about using class-based views and generic class-based views see th
 
 ### 2.1 Code Walk-through
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Qki2m5AyfWw
+" frameborder="0" allowfullscreen></iframe>
+
 #### `View`
 The class-based views in Django all extend from the parent class `View`. This class can be found in `django.views.generic.base` ([code here](https://github.com/django/django/blob/master/django/views/generic/base.py#L31)).
 
