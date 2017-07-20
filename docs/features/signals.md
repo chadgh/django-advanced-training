@@ -137,6 +137,9 @@ Note the call to `todo_complete.send`. This is calling the `send` method of the 
 
 ### 2.1 Code Walk-through
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gM7enrZDQHA
+" frameborder="0" allowfullscreen></iframe>
+
 #### `django.core.signals`
 
 Django's signals implementation starts in the `django.core.signals` module ([code](https://github.com/django/django/blob/master/django/core/signals.py)). The first thing you may notice is that that module is very small (6 lines of code). All of the signals implementation is in the `django.dispatch` package ([code](https://github.com/django/django/blob/master/django/dispatch/dispatcher.py)).
