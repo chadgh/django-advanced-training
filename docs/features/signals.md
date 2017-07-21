@@ -189,7 +189,7 @@ class Signal:
 ```
 All this method really accomplishes is that is adds the receiver function to the list of receivers held by the signal (instance of Signal)
 
-The `connect` method above has been simplified from the actual implementation to help us understand what `connect` is doing. First a `lookup_key` is generated for the receiver. This allows the signal to identify the individual receivers TODO.
+The `connect` method above has been simplified from the actual implementation to help us understand what `connect` is doing. First a `lookup_key` is generated for the receiver. This allows the signal to identify the individual receivers and make sure that the same receiver isn't connected more than once to the signal.
 
 Then `self.lock` is used in a context manager to lock the signal for adding the receiver to make sure the `self.receiver` list is only modified by one process at a time.
 
