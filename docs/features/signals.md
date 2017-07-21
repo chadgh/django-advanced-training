@@ -133,14 +133,12 @@ class Todo(models.Model):
 ```
 Note the call to `todo_complete.send`. This is calling the `send` method of the custom signal instance. This setup allows other developers, or yourself in other areas of your code, to hook into the event (signal) of completing a todo item and attach any functionality they would like to that event.
 
-## 2. Deep Dive
-
-### 2.1 Code Walk-through
+## 2. Deep Dive: Code Walk-through
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/gM7enrZDQHA
 " frameborder="0" allowfullscreen></iframe>
 
-#### `django.core.signals`
+### `django.core.signals`
 
 Django's signals implementation starts in the `django.core.signals` module ([code](https://github.com/django/django/blob/master/django/core/signals.py)). The first thing you may notice is that that module is very small (6 lines of code). All of the signals implementation is in the `django.dispatch` package ([code](https://github.com/django/django/blob/master/django/dispatch/dispatcher.py)).
 
@@ -156,7 +154,7 @@ request_started = Signal(providing_args=["environ"])
 
 Note that the `request_started` signal that Django provides is simply an instance of the `Signal` class provided by `django.dispatch`.
 
-#### `django.dispatch.dispatcher.Signal`
+### `django.dispatch.dispatcher.Signal`
 
 The `Signal` class ([implementation](https://github.com/django/django/blob/master/django/dispatch/dispatcher.py#L19)) is found in the `django.dispatch.dispatcher` module (but can be imported from `django.dispatch`).
 
@@ -244,7 +242,7 @@ Notice here that where the `send` method had a simple list comprehension, the `s
 
 Internally Django only uses the `send` method for sending signals. The `send_robust` can be used for your own custom signals.
 
-#### Where are `request_started` and `request_finished` called from?
+### Where are `request_started` and `request_finished` called from?
 
 We know where the `request_started` and `request_finished` signals are created (`django.core.signals`) but where are those signals triggered (sent)?
 
@@ -263,10 +261,9 @@ class HttpResponseBase:
 ```
 We are obviously leaving a lot of things out here, but the important part is that the very last thing `close` does is send the `request_finished` signal.
 
-### 2.2 Language Features
+## 3. Deep Dive: Language Features
 
-
-#### for-else block
+### for-else block
 You may have noticed some strange code in the examples above, a for loop with an associated else block (in the discussion about `django.dispatch.dispatcher.Signal`). This is not a common construct, but it exists in Python and its meaning is a little tough for some to remember.
 
 ```python
@@ -283,7 +280,7 @@ else:
 
 I think the above example illustrates its use nicely. The else block gets executed with the whole for loop completes and the break statement isn't reached.
 
-#### Context manager
+### Context manager
 
 A lot of times in code you have to acquire a resource, do something with it, and then clean things up afterwards. This is the case when working with files (open, process, close), locks (lock, process, release), and many other resources. Because it is such a common flow (run common setup code, do something, run tear down code) Python added a statement that makes this a lot nicer.
 
@@ -303,17 +300,15 @@ The above code shows two methods of working with files. Both methods work just f
 
 We can see another use of context managers in the `django.dispatch.dispatcher.Signal` classes `connect` method. In there a lock is acquired and released using the `with` statement. Once again, this has the benefit of being safer because the lock is guaranteed to be released even if an exception is raised in the `with` block code.
 
-## 3. Hands-on Exercises
-
-### 3.1 Exercise 1
+## 4. Hands-on Exercises
 
 **Implement `todo_done` and `todo_undone` signals. Call the send method from the methods on the `Todo` model such as `mark_done` and `mark_undone`. Hook into the signal a callback that logs the item that was completed or undone.**
 
-#### Hints
+### Hints
 
 * We did something very similar to this in the Basics section above.
 
-#### Possible Solution
+### Possible Solution
 
 ```python
 # todo/signals.py
@@ -368,7 +363,7 @@ class TodoConfig(AppConfig):
 
 __Note__: This is just one solution for solving this problem. The problem can be solved correctly in many different ways.
 
-## 4. Contribute
+## 5. Contribute
 
 ### Resources
 

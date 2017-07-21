@@ -55,13 +55,11 @@ The messages framework is setup by default in the standard Django project that y
 
 For more information about Django's messages framework see the [Django documentation](https://docs.djangoproject.com/en/1.11/ref/contrib/messages/). Also a [Google search](https://www.google.com/search?q=django+messages+framework) for `django messages framework` results in many helpful resources for learning more.
 
-## 2. Deep Dive
-
-### 2.1. Code Walk-through
+## 2. Deep Dive: Code Walk-through
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/c5zdlZesIGE" frameborder="0" allowfullscreen></iframe>
 
-#### `MessageMiddleware`
+### `MessageMiddleware`
 The messages middleware is the place to start as we take a closer look at the implementation for this feature. The middleware is one of the things that is required to make sure you are able to use the messages framework. The code can be found [on github](https://github.com/django/django/blob/master/django/contrib/messages/middleware.py).
 
 There are two methods in the `MessageMiddleware` class that are executed for each request/response. The first is the `process_request` method which is executed on each request as it comes into Django.
@@ -90,7 +88,7 @@ Before each response is sent back from Django to the user's browser the response
 
 The end result of this means that before a response is sent back to the user's browser, all unread messages are stored for later use.
 
-#### `messages.context_processors`
+### `messages.context_processors`
 
 The messages context processor ([code](https://github.com/django/django/blob/master/django/contrib/messages/context_processors.py)) makes sure that every context that is sent to a template to be rendered gets the following context variables added:
 
@@ -102,7 +100,7 @@ The messages context processor ([code](https://github.com/django/django/blob/mas
 <dd>A dict of the default message levels where the keys are the level names and the values are the level integer values (similar to the message level table above).</dd>
 </dl>
 
-#### Message Storage
+### Message Storage
 
 The messages framework stores the messages in what is known as a storage backend. These backends must extend from the `BaseStorage` class found in [storage/base.py](https://github.com/django/django/blob/master/django/contrib/messages/storage/base.py#L43) in the messages framework code. The `BaseStorage` class' doc string states that all children classes that implement a new storage backend must implement two methods: `_get` and `_store`.
 
@@ -190,7 +188,7 @@ class SessionStorage(BaseStorage):
 
 The `SessionStorage` backend does make use of a few helper methods to serialize and deserialize the messages before and after storing them in the session, but other than that the session storage backend implementation is fairly straight forward. The `_get` method pulls any messages out of the session (`self.request.session.get(self.session_key)`) and the`_store` method puts messages into the session (`self.request.session[self.session_key] = messages`).
 
-#### Messages API and Constants
+### Messages API and Constants
 The final piece to the messages framework puzzle is the interface used by the Django developer. When you import `from django.contrib import messages` you are importing everything in the [`constants.py`](https://github.com/django/django/blob/master/django/contrib/messages/constants.py) file and the [`api.py`](https://github.com/django/django/blob/master/django/contrib/messages/api.py) file.
 
 The `constants.py` file contains the message level constants that are used throughout the code. 
@@ -236,9 +234,9 @@ def debug(request, message, extra_tags='', fail_silently=False):
 ```
 All of the convenience functions are the same here. The only differences being the name, the doc string, and which constant level value that is provided as the second argument of the `add_message` call.
 
-### 2.2 Language Features
+## 3. Deep Dive: Language Features
 
-#### try-except-else
+### try-except-else
 Python has the concept of an `else` block in connection with a `try-except` block. This is for code that should be executed if no exceptions were raised.
 
 ```python
@@ -252,7 +250,7 @@ else:
 
 We saw this in the `api.py` file in the `add_message` function. The `try` block was used to get access to the current instance of the message storage backend (`request._message`) and so the `else` block is executed if that access doesn't fail.
 
-#### Custom containers
+### Custom containers
 
 Python has double underscore (dunder) methods that can be defined on classes to make them work within built-in constructs and operators. You can create your own class and if you also define the `__len__`, `__iter__`, and `__contains__` methods you have also defined a new type of container object.
 
@@ -265,9 +263,9 @@ The `__contains__` method is used to determine if an object is in the container.
 The `BaseStorage` class implements these methods and it is why we can iterate over the storage backend instance in the templates and determine who many messages there are.
 
 
-### 2.3 Software Architectural Features
+## 4. Deep Dive: Software Architectural Features
 
-#### Inheritance
+### Inheritance
 
 In object oriented programming (OOP) inheritance is used to share code between objects and build upon the functionality provided in other classes. In Python this syntax is:
 
@@ -280,7 +278,7 @@ This means that the `MyBackend` class extends the `BaseStorage` class. All of th
 
 In the messages framework we see the use of inheritance by defining the `BaseStorage` parent class that all the child classes must inherit from. There is no need to write any other code than the two methods that must get implemented (`_get` and `_store`). All other interface code is shared among all storage backends, because they must all extend from the same parent class.
 
-#### Singleton pattern
+### Singleton pattern
 
 In OOP it is sometimes common to make sure there is only ever one instance of a class. This is called the [Singleton pattern](https://en.wikipedia.org/wiki/Singleton_pattern). Code is usually written in the class constructors to make sure that it is only able to be instantiated once.
 
@@ -320,22 +318,20 @@ Now, in that same REPL session, if we import the `single` module again but using
 10
 ```
 
-## 3. Hands-on Exercises
-
-### 3.1 Exercise 1
+## 5. Hands-on Exercises
 
 **Implement a new messages storage backend that uses Django's caching framework.**
 
 The hints section below is to help you come up with a solution to this problem. The possible solution section below shows one possible solution to this problem. Try out your own solution first with the help of the hints before taking a look at the possible solution section.
 
-#### Hints
+### Hints
 
 * You can get access to the low-level Django cache framework by importing it `from django.core.cache import cache`. See Django's [low-level cache documentation](https://docs.djangoproject.com/en/1.11/topics/cache/#the-low-level-cache-api).
 * You can set and get values from the cache framework using the `set` and `get` methods.
 * Remember that you probably want to store messages on a per user basis.
 * Don't forget to change the `MESSAGE_STORAGE` setting to point to your custom backend.
 
-#### Possible Solution
+### Possible Solution
 
 Here is one possible solution. One major problem with this solution is that it will only store messages in the cache based on the username of the user. This is a problem in that if you are storing messages in views that don't require authentication, than any user that is not authenticated will have a blank username and all messages will be stored in the same place for those users. So, this implementation is not perfect, but it will work in authenticated views.
 
@@ -360,7 +356,7 @@ class CacheStorage(BaseStorage):
         return []
 ```
 
-## 4. Contribute
+## 6. Contribute
 
 ### Resources
 

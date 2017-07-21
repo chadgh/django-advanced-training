@@ -120,14 +120,12 @@ The `urls.py` file shouldn't have to be modified.
 
 To learn more about using class-based views and generic class-based views see the Django documentation [ref](https://docs.djangoproject.com/en/1.11/ref/class-based-views/) and [topics](https://docs.djangoproject.com/en/1.11/topics/class-based-views/) sections.
 
-## 2. Deep Dive
-
-### 2.1 Code Walk-through
+## 2. Deep Dive: Code Walk-through
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Qki2m5AyfWw
 " frameborder="0" allowfullscreen></iframe>
 
-#### `View`
+### `View`
 The class-based views in Django all extend from the parent class `View`. This class can be found in `django.views.generic.base` ([code here](https://github.com/django/django/blob/master/django/views/generic/base.py#L31)).
 
 The `View` class has three methods that we will take a closer look at. For convenience the important parts of these methods are included below.
@@ -177,7 +175,7 @@ The `as_view` method creates and returns a new function that is used as a Django
 
 The `view` function that is created and returned from the `as_view` method, looks a lot like a function-based view. It takes a request and returns the results of calling the class-based views `dispatch` method. It is also interesting to see that the `view` function on each request will instantiate a new instance of the view class, set the request, args, and kwargs attributes, and then call and return the results from the view instance's `dispatch` method. It is also interesting to note that the `view` function also gets a few attributes of its own including the `view_class` and `view_initkwargs` attributes.
 
-#### `ContextMixin` and `TemplateResponseMixin`
+### `ContextMixin` and `TemplateResponseMixin`
 
 The suffix `Mixin` in Python is a convention that is often used to signify that the class provides functionality that can be used by other things. These types of classes aren't usually instantiated or used on their own other than to be extended from so that other classes can use the functionality they provide. These types of classes usually have no parent class and provide a very specific bit of functionality.
 
@@ -221,7 +219,7 @@ This class provides a few more attributes and another method that are not seen h
 
 These two mixins don't seem to provide very much, but when combined into the same view class, we can begin to see the power they offer. In the next section we look at the `TemplateView` class-based view and what it provides.
 
-#### `TemplateView`
+### `TemplateView`
 
 The `TemplateView` class-based view provides a simple reusable (generic) class-based view for rendering views that rely on context data and rendering a template. We look at it below ([code on github](https://github.com/django/django/blob/master/django/views/generic/base.py#L145)).
 
@@ -245,9 +243,9 @@ class ShowTimeView(TemplateView):
 ```
 The `ShowTimeView` will take care of rendering the proper response object for us and we have no need of defining a `get` method because we extended the `TemplateView` class-based view.
 
-### 2.2 Language Features
+## 3. Deep Dive: Language Features
 
-#### First-class functions
+### First-class functions
 
 In Python, functions are known as [first-class](https://en.wikipedia.org/wiki/First-class_function) or higher order functions. Essentially this means that functions can be passed to other function calls, returned from other functions, and be assigned to variable names.
 
@@ -273,7 +271,7 @@ Let's look at another example of using functions as first-class citizens.
 
 In this example the `make_power_func` function takes a number, `power`, and creates a new function that encapsulates the `power` value. The `make_power_func` function also returns the newly defined `to_the_power` function. We then assign that function to the value of `pow_10` and we can then call the function through that new name. We could call the `make_power_func` function for as many values as we wish and create power function on the fly.
 
-#### Multiple inheritance
+### Multiple inheritance
 
 Python's OOP model allows for multiple inheritance. This can be easily seen in the `TemplateView` class above:
 
@@ -292,26 +290,24 @@ In order to see the parent classes, and the order that they will be called/searc
 ```
 This parent list is a predictable specifically ordered list of the parents that defines the order that parents are searched when calling a method and using `super`.
 
-### 2.3 Software Architecture Features
+## 4. Deep Dive: Software Architecture Features
 
-#### Multiple inheritance
+### Multiple inheritance
 
 Multiple inheritance can be a tricky problem to solve, what do you do if multiple parents define the same method, which one do you call if the method is called from a child class instance?
 
 One algorithm that solves this problem (and the algorithm that is used for MRO in Python) is the [C3 linearization]() algorithm. The C3 linearization algorithm provides a consistent order to the MRO list of parent classes because of this it is deterministic in the order of the parent classes it produces.
 
-## 3. Hands-on Exercises
-
-### 3.1 Exercise 1
+## 5. Hands-on Exercises
 
 **Implement a generic class-based view called `StaticView` that extends from `View` and provides a get method that will respond with a static HTML page.**
 
-#### Hints
+### Hints
 
 * Make sure it is reusable. The static HTML should to be specified by each child class-based view of `StaticView`.
 * Take a look at what the `TemplateView` does in its `get` method.
 
-#### Possible Solution
+### Possible Solution
 
 There are most definitely other ways to solve this problem, but here is one simple solution.
 
@@ -338,7 +334,7 @@ The `StaticView` class can be extended and the `static_html` attribute updated. 
     url(r'^test/$', views.StaticView.as_view(static_html='test.html'))
 ```
 
-## 4. Contribute
+## 6. Contribute
 
 ### Resources
 
