@@ -1,6 +1,9 @@
 # Class-based Views
 
 ## 1. Basics
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Co2pM7QZT5A" frameborder="0" allowfullscreen></iframe>
+
 Django's class-based views provide a object-oriented (OO) way of organizing your view code. Most Django tutorials and training material start developers off with the simple style of function-based views (which were available in Django long before class-based views). Class-based views were introduced to help make view code more reusable and provide for better view code organization.
 
 The structure of a simple function-based view that is used to process both `GET` and `POST` requests might look like this:
@@ -122,8 +125,7 @@ To learn more about using class-based views and generic class-based views see th
 
 ## 2. Deep Dive: Code Walk-through
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Qki2m5AyfWw
-" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Qki2m5AyfWw" frameborder="0" allowfullscreen></iframe>
 
 ### `View`
 The class-based views in Django all extend from the parent class `View`. This class can be found in `django.views.generic.base` ([code here](https://github.com/django/django/blob/master/django/views/generic/base.py#L31)).

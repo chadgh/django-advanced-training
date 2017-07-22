@@ -2,6 +2,8 @@
 
 ## 1. Basics
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/SUPQuirkgG0" frameborder="0" allowfullscreen></iframe>
+
 Django's messages framework makes sending one-time messages to users simple. After setting up the messages framework in your Django project (which is setup by default in the standard Django project) it is as simple as adding a message with a single call in your views. 
 
 ```python

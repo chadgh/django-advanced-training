@@ -2,6 +2,8 @@
 
 ## 1. Basics
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/CUtEbRjFGhw" frameborder="0" allowfullscreen></iframe>
+
 Django's signal dispatcher allows _senders_ to notify _receivers_ (or handlers) that an action has occurred. This is helpful for decoupling code and when you have different pieces of code that are interested in the same event. Signals are like event-based programming. You can hook up callback functions that get executed when specific events happen.
 
 Some of the most common built-in signals in Django are:
@@ -135,8 +137,7 @@ Note the call to `todo_complete.send`. This is calling the `send` method of the 
 
 ## 2. Deep Dive: Code Walk-through
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/gM7enrZDQHA
-" frameborder="0" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/gM7enrZDQHA" frameborder="0" allowfullscreen></iframe>
 
 ### `django.core.signals`
 

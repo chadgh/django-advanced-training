@@ -31,3 +31,5 @@ After you have a few todo items, you can go to [localhost:8000/todos/](http://lo
 # Using the base training project
 
 Once you have the project setup, you can use it to try out features that you learn about from the training as well as attempt to solve the hands-on problems presented for each feature. Use the project as a sandbox to try things out with Django. 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/FvJR4H5CSd8" frameborder="0" allowfullscreen></iframe>
