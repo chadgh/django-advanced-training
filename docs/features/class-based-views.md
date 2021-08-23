@@ -4,7 +4,7 @@
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Co2pM7QZT5A" frameborder="0" allowfullscreen></iframe>
 
-Django's class-based views provide a object-oriented (OO) way of organizing your view code. Most Django tutorials and training material start developers off with the simple style of function-based views (which were available in Django long before class-based views). Class-based views were introduced to help make view code more reusable and provide for better view code organization.
+Django's class-based views provide an object-oriented (OO) way of organizing your view code. Most Django tutorials and training material start developers off with the simple style of function-based views (which were available in Django long before class-based views). Class-based views were introduced to help make view code more reusable and provide for better view code organization.
 
 The structure of a simple function-based view that is used to process both `GET` and `POST` requests might look like this:
 
@@ -41,13 +41,13 @@ from . import views
 urlconfig = [
     # the function-based view is added as the second param
     url(r'^function/$', views.simple_function_based_view),
-    # the as_view method is called on the class-based view and 
+    # the as_view method is called on the class-based view and
     # the result is the value of the second param
     url(r'^class/$', views.SimpleClassBasedView.as_view()),
 ]
 ```
 
-To illustrate the further we will walk through converting a function-based view to a class-based view that does the same thing.
+To illustrate the further, we will walk through converting a function-based view to a class-based view that does the same thing.
 
 ```python
 # views.py
@@ -67,11 +67,11 @@ from django.conf.urls import url
 from . import views
 
 urlpatterns = [
-    url(r'^now/$', views.show_time_time),
+    url(r'^now/$', views.show_the_time),
 ]
 ```
 
-In order to do the same thing using a class-based view the files would have to change as follows:
+Inorder to do the same thing using a class-based view the files would have to change as follows:
 
 ```python
 # views.py
@@ -98,7 +98,7 @@ urlpatterns = [
     url(r'^now/$', views.ShowTimeView.as_view()),  # change how we reference the new view.
 ]
 ```
-Note that there are not many changes in order to change from one type of view (function-based) to the other (class-based). The benefit of going with the class-based view (even in this simple example) is that the view is going to be more robust. The class-based views (view classes that extend the `View` class) get built-in responses to unsupported methods (`POST`, `PUT`, `PATCH`, etc.) and get support for the `OPTIONS` HTTP method too. All that is required to support other HTTP methods is to implement the same named method on the view class.
+Note that there are not many changes inorder to change from one type of view (function-based) to the other (class-based). The benefit of going with the class-based view (even in this simple example) is that the view is going to be more robust. The class-based views (view classes that extend the `View` class) get built-in responses to unsupported methods (`POST`, `PUT`, `PATCH`, etc.) and get support for the `OPTIONS` HTTP method too. All that is required to support other HTTP methods is to implement the same named method on the view class.
 
 There are also generic class-based views. These are class-based views that provide extra common functionality. For example, a common type of view might be called a template view, a view that generates some context and sends the context to a specified template for rendering. Django provides a generic class-based view for that very purpose, `TemplateView`.
 
@@ -161,7 +161,7 @@ class View:
     def dispatch(self, request, *args, **kwargs):
         ...
         if request.method.lower() in self.http_method_names:
-            hander = getattr(self, request.method.lower(), self.http_method_not_allowed)
+            handler = getattr(self, request.method.lower(), self.http_method_not_allowed)
         else:
             handler = self.http_method_not_allowed
         return handler(request, *args, **kwargs)
@@ -173,7 +173,7 @@ The `__init__` method is fairly simple. It takes keyword arguments and sets each
 
 The `dispatch` method contains the actual view logic. It takes a request, finds the method that should be called for the given request (by using the HTTP method used), and returns the results of calling that method. If there isn't a method for the HTTP method used, the default view is the `http_method_not_allowed` view. It returns an HTTP 405 response.
 
-The `as_view` method creates and returns a new function that is used as a Django view. Here we can see that even class-based views are simply just function-based views when they are actually used.o
+The `as_view` method creates and returns a new function that is used as a Django view. Here we can see that even class-based views are simply just function-based views when they are actually used.
 
 The `view` function that is created and returned from the `as_view` method, looks a lot like a function-based view. It takes a request and returns the results of calling the class-based views `dispatch` method. It is also interesting to see that the `view` function on each request will instantiate a new instance of the view class, set the request, args, and kwargs attributes, and then call and return the results from the view instance's `dispatch` method. It is also interesting to note that the `view` function also gets a few attributes of its own including the `view_class` and `view_initkwargs` attributes.
 
@@ -194,7 +194,7 @@ class ContextMixin:
         return kwargs
 ```
 
-By itself, the `ContextMixin` isn't that helpful. The `get_context_data` method makes sure that there is a value `view` in kwargs and also makes sure that if there is anything in the `extra_context` attribute it is also added to kwargs before returning kwargs. In the next section we will see why this mixin is helpful, but first we will take a looks at the `TemplateResponseMixin`.
+By itself, the `ContextMixin` isn't that helpful. The `get_context_data` method makes sure that there is a value `view` in kwargs and also makes sure that if there is anything in the `extra_context` attribute, it is also added to kwargs before returning kwargs. In the next section we will see why this mixin is helpful, but first we will take a looks at the `TemplateResponseMixin`.
 
 The `TemplateResponseMixin` ([also in the same file](https://github.com/django/django/blob/master/django/views/generic/base.py#L109)) looks like this:
 
@@ -281,9 +281,9 @@ Python's OOP model allows for multiple inheritance. This can be easily seen in t
 class TemplateView(TemplateResponseMixin, ContextMixin, View):
 ```
 
-When defining a class the parents of that class are defined in parenthesis after the class name. The `TemplateView` class has three explicit parent classes. There would also most likely be some implicit parent classes (such as `object` which is the parent of all classes in Python, but rarely explicitly defined). The order of the parents matters here because when the `super` function is called in any methods in order to call a parent method, parents are searched in the order defined. So when we call the `get_context_data` method on the `TemplateView` class instance, it first looks in `TemplateResponseMixin` and then moves to `ContextMixin` (before stopping because the method was found there).
+When defining a class the parents of that class are defined in parenthesis after the class name. The `TemplateView` class has three explicit parent classes. There would also most likely be some implicit parent classes (such as `object` which is the parent of all classes in Python, but rarely explicitly defined). The order of the parents matters here because when the `super` function is called in any methods inorder to call a parent method, parents are searched in the order defined. So when we call the `get_context_data` method on the `TemplateView` class instance, it first looks in `TemplateResponseMixin` and then moves to `ContextMixin` (before stopping because the method was found there).
 
-In order to see the parent classes, and the order that they will be called/searched, you can called the `mro` method of a class (MRO stands for Method Resolution Order).
+Inorder to see the parent classes, and the order that they will be called/searched, you can called the `mro` method of a class (MRO stands for Method Resolution Order).
 
 ```python
 >>> from django.views.generic import TemplateView
